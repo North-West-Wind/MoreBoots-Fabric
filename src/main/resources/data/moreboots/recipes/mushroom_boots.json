@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RbR",
+    "SBS",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:mycelium"
+    },
+    "R": {
+      "item": "minecraft:red_mushroom_block"
+    },
+    "b": {
+      "item": "minecraft:brown_mushroom_block"
+    },
+    "S": {
+      "item": "minecraft:mushroom_stem"
+    },
+    "B": {
+      "item": "moreboots:bone_boots"
+    }
+  },
+  "result": {
+    "item": "moreboots:mushroom_boots",
+    "count": 1
+  }
+}

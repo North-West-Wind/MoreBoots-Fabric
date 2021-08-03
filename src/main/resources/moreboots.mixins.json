@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "ml.northwestwind.moreboots.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "MixinAbstractBlockState",
+    "MixinBrewingRecipeRegistry",
+    "MixinEntity",
+    "MixinLivingEntity",
+    "MixinPlayerEntity",
+    "MixinPotionSlot"
+  ],
+  "client": [
+    "MixinMinecraftClient",
+    "MixinEntityRenderer",
+    "MixinLivingEntityRenderer",
+    "MixinSoundSystem"
+  ],
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

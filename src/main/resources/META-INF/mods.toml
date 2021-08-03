@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="MIT"
+issueTrackerURL="https://github.com/North-West-Wind/MoreBoots/issues"
+
+[[mods]]
+modId="moreboots"
+version="2.0.0"
+displayName="More Boots"
+updateJSONURL="https://github.com/North-West-Wind/MoreBoots/raw/main/update.json"
+displayURL="https://github.com/North-West-Wind/MoreBoots"
+logoFile= "../assets/moreboots/moreboots.png"
+credits="Thanks for playing with More Boots!"
+authors="NorthWestWind"
+description='''
+Oh, you love shoes? Name every boots in this mod.
+(Note: There isn't a lot of boots in this mod currently, but it will receive constant updates in the future.)
+'''
+
+[[dependencies.moreboots]]
+    modId="forge"
+    mandatory=true
+    versionRange="[37,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.moreboots]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.17.1,1.18)"
+    ordering="NONE"
+    side="BOTH"

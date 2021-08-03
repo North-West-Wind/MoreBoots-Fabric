@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": ["# #", "# #"],
+    "key": {
+        "#": {
+            "item": "moreboots:cobblestone_512"
+        }
+    },
+    "result": {
+        "item": "moreboots:miner_boots",
+        "count": 1
+    }
+}

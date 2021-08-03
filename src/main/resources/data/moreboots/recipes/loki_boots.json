@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "moreboots:vanishing_boots"
+    }
+  ],
+  "result": {
+    "item": "moreboots:loki_boots",
+    "count": 1
+  }
+}

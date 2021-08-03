@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:blackstone"
+    },
+    {
+      "item": "minecraft:prismarine_shard"
+    },
+    {
+      "item": "minecraft:leather_boots"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "minecraft:grass"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    },
+    {
+      "item": "minecraft:snow"
+    }
+  ],
+  "result": {
+    "item": "moreboots:plumber_boots",
+    "count": 1
+  }
+}

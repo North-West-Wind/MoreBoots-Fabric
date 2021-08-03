@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "T"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:netherite_boots"
+    },
+    "T": {
+      "item": "minecraft:trident"
+    }
+  },
+  "result": {
+    "item": "moreboots:lightning_boots",
+    "count": 1
+  }
+}
