@@ -65,6 +65,7 @@ public class ItemInit {
     public static final Item ENDER_DRAGON_BOOTS = new EnderDragonBootsItem();
     public static final Item WITHER_BOOTS = new WitherBootsItem();
     public static final Item MACHINE_BOW_BOOTS = new MachineBowBoots();
+    public static final Item SLIPPERY_BOOTS = new SlipperyBoots();
 
     public static final Item QUARTZ_INGOT = new TooltipItem("quartz_ingot");
     public static final Item METAL_MIX = new TooltipItem("metal_mix");
@@ -119,7 +120,8 @@ public class ItemInit {
                 MAGMA_BOOTS,
                 ENDER_DRAGON_BOOTS,
                 WITHER_BOOTS,
-                MACHINE_BOW_BOOTS
+                MACHINE_BOW_BOOTS,
+                SLIPPERY_BOOTS
         );
 
         registerAll(
@@ -164,8 +166,8 @@ public class ItemInit {
         OBSIDIAN("obsidian", 200, 4, 20, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, 90000, () -> {
             return Ingredient.ofItems(Blocks.OBSIDIAN);
         }),
-        ICE("ice", 20, 1, 5, SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 0.0f, 15000, () -> {
-            return Ingredient.ofItems(Blocks.BLUE_ICE);
+        ICE("ice", 5, 1, 5, SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 0.0f, 15000, () -> {
+            return Ingredient.ofItems(Blocks.PACKED_ICE);
         }),
         VANISHING("vanishing", 32, 2, 8, SoundEvents.ENTITY_ILLUSIONER_PREPARE_MIRROR, 0.0f, 0.0f, 100000, () -> Ingredient.EMPTY),
         MILK("milk", 24, 1, 10, SoundEvents.ENTITY_COW_MILK, 0.0f, 0.0f, 20000, () -> Ingredient.EMPTY),
@@ -215,11 +217,12 @@ public class ItemInit {
         MAGMA("magma", 16, 2, 8, SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_INSIDE, 0f, 0f, 100000, () -> Ingredient.ofItems(Items.MAGMA_CREAM)),
         DRAGON("ender_dragon", 40, 4, 20, SoundEvents.ENTITY_ENDER_DRAGON_AMBIENT, 1.0f, 1.0f, 240000, () -> Ingredient.EMPTY),
         WITHER("wither", 40, 5, 24, SoundEvents.ENTITY_WITHER_AMBIENT, 1.0f, 1.0f, 240000, () -> Ingredient.EMPTY),
-        MACHINE_BOW("machine_bow", 20, 1, 10, SoundEvents.ENTITY_ARROW_SHOOT, 0f, 0f, 90000, () -> Ingredient.EMPTY);
-        private static final int[] MAX_DAMAGE_ARRAY = new int[] { 16, 16, 16, 16 };
+        MACHINE_BOW("machine_bow", 20, 1, 10, SoundEvents.ENTITY_ARROW_SHOOT, 0f, 0f, 90000, () -> Ingredient.EMPTY),
+        SLIPPERY("slippery", 20, 1, 8, SoundEvents.BLOCK_GLASS_BREAK, 0f, 0f, 20000, () -> Ingredient.ofItems(Items.BLUE_ICE));
+        private static final int MAX_DMG = 16;
         private final String name;
-        private final float maxDamageFactor;
-        private final int[] damageReductionAmountArray;
+        private final float maxDmgFac;
+        private final int dmgRedAmt;
         private final int enchantability;
         private final SoundEvent soundEvent;
         private final float toughness;
@@ -230,8 +233,8 @@ public class ItemInit {
                          int enchant, SoundEvent sound, float tough, float kbRes, int energy,
                          Supplier<Ingredient> repairMat) {
             this.name = name;
-            this.maxDamageFactor = maxDmg;
-            this.damageReductionAmountArray = new int[] { dmgRed, 1, 1, 1 };
+            this.maxDmgFac = maxDmg;
+            this.dmgRedAmt = dmgRed;
             this.enchantability = enchant;
             this.soundEvent = sound;
             this.toughness = tough;
@@ -246,11 +249,11 @@ public class ItemInit {
         }
         @Override
         public int getDurability(EquipmentSlot slotIn) {
-            return (int) (MAX_DAMAGE_ARRAY[slotIn.getEntitySlotId()] * this.maxDamageFactor);
+            return (int) (MAX_DMG * this.maxDmgFac);
         }
         @Override
         public int getProtectionAmount(EquipmentSlot slotIn) {
-            return this.damageReductionAmountArray[slotIn.getEntitySlotId()];
+            return this.dmgRedAmt;
         }
         @Override
         public int getEnchantability() {

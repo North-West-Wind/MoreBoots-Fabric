@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "MixinAbstractBlockState",
+    "MixinBoatEntity",
     "MixinBrewingRecipeRegistry",
     "MixinEntity",
     "MixinLivingEntity",
@@ -11,9 +12,9 @@
     "MixinPotionSlot"
   ],
   "client": [
-    "MixinMinecraftClient",
     "MixinEntityRenderer",
     "MixinLivingEntityRenderer",
+    "MixinMinecraftClient",
     "MixinSoundSystem"
   ],
   "minVersion": "0.8",

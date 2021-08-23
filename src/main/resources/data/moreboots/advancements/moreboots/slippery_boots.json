@@ -1,0 +1,36 @@
+{
+  "parent": "moreboots:moreboots/ice_boots",
+  "display": {
+    "icon": {
+      "item": "moreboots:slippery_boots",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.moreboots.slippery_boots.title"
+    },
+    "description": {
+      "translate": "advancements.moreboots.slippery_boots.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slippery_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "moreboots:slippery_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slippery_boots"
+    ]
+  ]
+}

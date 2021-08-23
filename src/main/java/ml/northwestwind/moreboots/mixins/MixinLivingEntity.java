@@ -3,6 +3,9 @@ package ml.northwestwind.moreboots.mixins;
 import com.google.common.collect.Lists;
 import ml.northwestwind.moreboots.events.*;
 import ml.northwestwind.moreboots.handler.MoreBootsHandler;
+import ml.northwestwind.moreboots.init.ItemInit;
+import ml.northwestwind.moreboots.init.item.boots.SlipperyBoots;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -74,5 +77,11 @@ public abstract class MixinLivingEntity extends MixinEntity {
         LivingDropsEvent event = new LivingDropsEvent((LivingEntity) (Object) this, source, items, looting, playerHitTimer > 0);
         MoreBootsHandler.onLivingDrop(event);
         items.forEach(item -> this.world.spawnEntity(item));
+    }
+
+    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
+    public float getSlipperiness(Block block) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        return entity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(ItemInit.SLIPPERY_BOOTS) ? SlipperyBoots.SLIPPERINESS : block.getSlipperiness();
     }
 }

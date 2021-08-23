@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 public class BootsItem extends ArmorItem {
-    private final String registryName;
+    protected final String registryName;
 
     public BootsItem(ArmorMaterial material, String registryName, boolean isNetherite) {
         super(material, EquipmentSlot.FEET, isNetherite ? new Item.Settings().group(MoreBoots.MoreBootsItemGroup.INSTANCE).fireproof() : new Item.Settings().group(MoreBoots.MoreBootsItemGroup.INSTANCE));
