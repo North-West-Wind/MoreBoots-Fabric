@@ -66,11 +66,13 @@ public class ItemInit {
     public static final Item WITHER_BOOTS = new WitherBootsItem();
     public static final Item MACHINE_BOW_BOOTS = new MachineBowBoots();
     public static final Item SLIPPERY_BOOTS = new SlipperyBoots();
+    public static final Item FLYING_BOOTS = new FlyingBootsItem();
 
     public static final Item QUARTZ_INGOT = new TooltipItem("quartz_ingot");
     public static final Item METAL_MIX = new TooltipItem("metal_mix");
     public static final Item BAT_HIDE = new TooltipItem("bat_hide");
     public static final Item STRIDER_FOOT = new TooltipItem("strider_foot");
+    public static final Item FLOATING_CORE = new TooltipItem("floating_core");
 
     public static void registerItems() {
         registerAll(
@@ -121,14 +123,16 @@ public class ItemInit {
                 ENDER_DRAGON_BOOTS,
                 WITHER_BOOTS,
                 MACHINE_BOW_BOOTS,
-                SLIPPERY_BOOTS
+                SLIPPERY_BOOTS,
+                FLYING_BOOTS
         );
 
         registerAll(
                 QUARTZ_INGOT,
                 METAL_MIX,
                 BAT_HIDE,
-                STRIDER_FOOT
+                STRIDER_FOOT,
+                FLOATING_CORE
         );
     }
 
@@ -218,7 +222,8 @@ public class ItemInit {
         DRAGON("ender_dragon", 40, 4, 20, SoundEvents.ENTITY_ENDER_DRAGON_AMBIENT, 1.0f, 1.0f, 240000, () -> Ingredient.EMPTY),
         WITHER("wither", 40, 5, 24, SoundEvents.ENTITY_WITHER_AMBIENT, 1.0f, 1.0f, 240000, () -> Ingredient.EMPTY),
         MACHINE_BOW("machine_bow", 20, 1, 10, SoundEvents.ENTITY_ARROW_SHOOT, 0f, 0f, 90000, () -> Ingredient.EMPTY),
-        SLIPPERY("slippery", 20, 1, 8, SoundEvents.BLOCK_GLASS_BREAK, 0f, 0f, 20000, () -> Ingredient.ofItems(Items.BLUE_ICE));
+        SLIPPERY("slippery", 20, 1, 8, SoundEvents.BLOCK_GLASS_BREAK, 0f, 0f, 20000, () -> Ingredient.ofItems(Items.BLUE_ICE)),
+        FLYING("flying", 5, 2, 20, SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 0f, 0f, 180000, () -> Ingredient.EMPTY);
         private static final int MAX_DMG = 16;
         private final String name;
         private final float maxDmgFac;
