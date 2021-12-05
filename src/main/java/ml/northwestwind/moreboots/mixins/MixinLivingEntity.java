@@ -55,8 +55,8 @@ public abstract class MixinLivingEntity extends MixinEntity {
     }
 
 
-    @Inject(method = "getEquipment", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;areEqual(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    public void getEquipment(CallbackInfoReturnable<Map<EquipmentSlot, ItemStack>> cir, Map<EquipmentSlot, ItemStack> map, EquipmentSlot[] var2, int var3, int var4, EquipmentSlot equipmentSlot, ItemStack itemStack3, ItemStack itemStack4) {
+    @Inject(method = "getEquipmentChanges", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;areEqual(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
+    public void getEquipmentChanges(CallbackInfoReturnable<Map<EquipmentSlot, ItemStack>> cir, Map<EquipmentSlot, ItemStack> map, EquipmentSlot[] var2, int var3, int var4, EquipmentSlot equipmentSlot, ItemStack itemStack3, ItemStack itemStack4) {
         MoreBootsHandler.onLivingEquipmentChange(new LivingEquipmentChangeEvent((LivingEntity) (Object) this, equipmentSlot, itemStack3, itemStack4));
     }
 
@@ -82,6 +82,6 @@ public abstract class MixinLivingEntity extends MixinEntity {
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
     public float getSlipperiness(Block block) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        return entity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(ItemInit.SLIPPERY_BOOTS) ? SlipperyBoots.SLIPPERINESS : block.getSlipperiness();
+        return entity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(ItemInit.SLIPPERY_BOOTS) && !entity.isSneaking() ? SlipperyBoots.SLIPPERINESS : block.getSlipperiness();
     }
 }

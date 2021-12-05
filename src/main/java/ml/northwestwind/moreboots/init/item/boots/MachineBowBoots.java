@@ -41,7 +41,7 @@ public class MachineBowBoots extends BootsItem {
         NbtCompound tag = boots.getOrCreateNbt();
         if (tag.getBoolean("Activated") && hasArrows(entity)) {
             ArrowEntity arrow = new ArrowEntity(entity.world, entity);
-            arrow.setProperties(entity, entity.getPitch(), entity.getYaw(), 0, 1, 1);
+            arrow.setVelocity(entity, entity.getPitch(), entity.getYaw(), 0, 1, 1);
             entity.world.spawnEntity(arrow);
             entity.world.playSound(null, entity.getBlockPos(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1, 1);
             if (entity.getRandom().nextInt(100) == 0)

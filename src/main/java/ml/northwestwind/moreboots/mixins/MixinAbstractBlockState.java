@@ -20,7 +20,7 @@ public class MixinAbstractBlockState {
     @Inject(at = @At("HEAD"), method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/ShapeContext;)Lnet/minecraft/util/shape/VoxelShape;", cancellable = true)
     public void getCollisionShape(BlockView worldIn, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
         if (!(context instanceof EntityShapeContext entCtx)) return;
-        if (entCtx.getEntity().isEmpty() || !(entCtx.getEntity().get() instanceof LivingEntity entity)) return;
+        if (entCtx.getEntity() == null || !(entCtx.getEntity() instanceof LivingEntity entity)) return;
         ItemStack boots = entity.getEquippedStack(EquipmentSlot.FEET);
         if (boots.getItem() instanceof BootsItem) ((BootsItem) boots.getItem()).getCollisionShape(worldIn, pos, context, cir);
     }

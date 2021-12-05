@@ -17,7 +17,7 @@ public class CShootWitherSkullPacket implements IPacket {
     @Override
     public void handle(ServerPlayerEntity player) {
         if (player == null) return;
-        Vec3d position = player.method_30951(1f).add(player.getRotationVector().normalize());
+        Vec3d position = player.getEyePos().add(player.getRotationVector().normalize());
         WitherSkullEntity skull = new WitherSkullEntity(player.world, player, player.getRotationVector().x, player.getRotationVector().y, player.getRotationVector().z);
         skull.setPos(position.x, position.y, position.z);
         player.world.spawnEntity(skull);

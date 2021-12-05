@@ -29,13 +29,16 @@ public class FlyingBootsItem extends BootsItem {
 
     @Override
     public void onLivingEquipmentChange(final LivingEquipmentChangeEvent event) {
-        if (!event.getSlot().equals(EquipmentSlot.FEET)) return;
-        if (!(event.getEntityLiving() instanceof PlayerEntity player)) return;
+        if (!event.getSlot().equals(EquipmentSlot.FEET) || !(event.getEntityLiving() instanceof PlayerEntity player) || player.isCreative()) return;
         ItemStack from = event.getFrom();
         ItemStack to = event.getTo();
-        boolean oldFlying = player.getAbilities().allowFlying;
+        boolean oldMayFly = player.getAbilities().allowFlying;
+        boolean oldFlying = player.getAbilities().flying;
         if (!from.getItem().equals(ItemInit.FLYING_BOOTS) && to.getItem().equals(ItemInit.FLYING_BOOTS)) player.getAbilities().allowFlying = true;
-        else if (from.getItem().equals(ItemInit.FLYING_BOOTS) && !to.getItem().equals(ItemInit.FLYING_BOOTS)) player.getAbilities().allowFlying = false;
-        if (oldFlying != player.getAbilities().allowFlying) player.sendAbilitiesUpdate();
+        else if (from.getItem().equals(ItemInit.FLYING_BOOTS) && !to.getItem().equals(ItemInit.FLYING_BOOTS)) {
+            player.getAbilities().allowFlying = false;
+            player.getAbilities().flying = false;
+        }
+        if (oldMayFly != player.getAbilities().allowFlying || oldFlying != player.getAbilities().flying) player.sendAbilitiesUpdate();
     }
 }
