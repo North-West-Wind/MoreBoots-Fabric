@@ -1,10 +1,14 @@
 package ml.northwestwind.moreboots.init;
 
+import ml.northwestwind.moreboots.MoreBoots;
 import ml.northwestwind.moreboots.init.item.BootsItem;
+import ml.northwestwind.moreboots.init.item.IHaveRegistryName;
+import ml.northwestwind.moreboots.init.item.TooltipAliasedBlockItem;
 import ml.northwestwind.moreboots.init.item.TooltipItem;
 import ml.northwestwind.moreboots.init.item.boots.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -67,12 +71,20 @@ public class ItemInit {
     public static final Item MACHINE_BOW_BOOTS = new MachineBowBoots();
     public static final Item SLIPPERY_BOOTS = new SlipperyBoots();
     public static final Item FLYING_BOOTS = new FlyingBootsItem();
+    public static final Item VISCOUS_BOOTS = new ViscousBootsItem();
+    public static final Item AVIAN_FEET = new AvianFeetItem();
+    public static final Item SUPER_AVIAN_FEET = new SuperAvianFeetItem();
+    public static final Item TANOOKI_FEET = new TanookiFeetItem();
+    public static final Item TURTLE_BOOTS = new TurtleBootsItem();
 
     public static final Item QUARTZ_INGOT = new TooltipItem("quartz_ingot");
     public static final Item METAL_MIX = new TooltipItem("metal_mix");
     public static final Item BAT_HIDE = new TooltipItem("bat_hide");
     public static final Item STRIDER_FOOT = new TooltipItem("strider_foot");
     public static final Item FLOATING_CORE = new TooltipItem("floating_core");
+    public static final Item GOLDEN_FEATHER = new TooltipItem("golden_feather");
+    public static final Item VISCOUS_GOO = new TooltipAliasedBlockItem(BlockInit.VISCOUS_GOO, "viscous_goo");
+    public static final Item SMOOTH_FABRIC = new TooltipItem("smooth_fabric");
 
     public static void registerItems() {
         registerAll(
@@ -124,7 +136,12 @@ public class ItemInit {
                 WITHER_BOOTS,
                 MACHINE_BOW_BOOTS,
                 SLIPPERY_BOOTS,
-                FLYING_BOOTS
+                FLYING_BOOTS,
+                VISCOUS_BOOTS,
+                AVIAN_FEET,
+                SUPER_AVIAN_FEET,
+                TANOOKI_FEET,
+                TURTLE_BOOTS
         );
 
         registerAll(
@@ -132,14 +149,16 @@ public class ItemInit {
                 METAL_MIX,
                 BAT_HIDE,
                 STRIDER_FOOT,
-                FLOATING_CORE
+                FLOATING_CORE,
+                GOLDEN_FEATHER,
+                VISCOUS_GOO,
+                SMOOTH_FABRIC
         );
     }
 
     public static void registerAll(Item... items) {
         for (Item item : items) {
-            if (item instanceof BootsItem) Registry.register(Registry.ITEM, ((BootsItem) item).getRegistryName(), item);
-            else if (item instanceof TooltipItem) Registry.register(Registry.ITEM, ((TooltipItem) item).getRegistryName(), item);
+            if (item instanceof IHaveRegistryName) Registry.register(Registry.ITEM, ((IHaveRegistryName) item).getRegistryName(), item);
         }
     }
 
@@ -153,7 +172,7 @@ public class ItemInit {
         SOCKS("socks", 20, 1, 20, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.5f, 0.0F, 20000, () -> {
             return Ingredient.ofItems(Items.WHITE_WOOL);
         }),
-        RAINBOW_SOCKS("rainbow_socks", 200, 10, 42, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 10.0f, 0.0F, 150000, () -> {
+        RAINBOW_SOCKS("rainbow_socks", 100, 10, 42, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 10.0f, 0.0F, 150000, () -> {
             return Ingredient.ofItems(BlockInit.RAINBOW_WOOL);
         }),
         MINER("miner", 16, 2, 15, SoundEvents.BLOCK_BEACON_ACTIVATE, 1.5F, 0.0F, 100000, () -> {
@@ -223,7 +242,12 @@ public class ItemInit {
         WITHER("wither", 40, 5, 24, SoundEvents.ENTITY_WITHER_AMBIENT, 1.0f, 1.0f, 240000, () -> Ingredient.EMPTY),
         MACHINE_BOW("machine_bow", 20, 1, 10, SoundEvents.ENTITY_ARROW_SHOOT, 0f, 0f, 90000, () -> Ingredient.EMPTY),
         SLIPPERY("slippery", 20, 1, 8, SoundEvents.BLOCK_GLASS_BREAK, 0f, 0f, 20000, () -> Ingredient.ofItems(Items.BLUE_ICE)),
-        FLYING("flying", 5, 2, 20, SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 0f, 0f, 180000, () -> Ingredient.EMPTY);
+        FLYING("flying", 5, 2, 20, SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 0f, 0f, 180000, () -> Ingredient.EMPTY),
+        VISCOUS("viscous", 15, 3, 12, SoundEvents.ENTITY_SPIDER_AMBIENT, 0f, 0f, 20000, () -> Ingredient.ofItems(VISCOUS_GOO)),
+        AVIAN("avian", 22, 2, 12, SoundEvents.BLOCK_GLASS_BREAK, 0f, 0f, 150000, () -> Ingredient.ofItems(Items.PHANTOM_MEMBRANE)),
+        SUPER_AVIAN("super_avian", 120, 10, 42, SoundEvents.BLOCK_GLASS_BREAK, 8f, 0f, 160000, () -> Ingredient.ofItems(BlockInit.RAINBOW_WOOL)),
+        TANOOKI("tanooki", 20, 1, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0f, 0.0f, 80000, () -> Ingredient.ofItems(Items.PHANTOM_MEMBRANE)),
+        TURTLE("turtle", 25, 2, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0f, 0f, () -> Ingredient.ofItems(Items.SCUTE));
         private static final int MAX_DMG = 16;
         private final String name;
         private final float maxDmgFac;

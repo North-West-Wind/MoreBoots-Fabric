@@ -3,6 +3,7 @@ package ml.northwestwind.moreboots.mixins;
 import com.google.common.collect.Lists;
 import ml.northwestwind.moreboots.events.*;
 import ml.northwestwind.moreboots.handler.MoreBootsHandler;
+import ml.northwestwind.moreboots.init.EffectInit;
 import ml.northwestwind.moreboots.init.ItemInit;
 import ml.northwestwind.moreboots.init.item.boots.SlipperyBoots;
 import net.minecraft.block.Block;
@@ -81,7 +82,9 @@ public abstract class MixinLivingEntity extends MixinEntity {
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
     public float getSlipperiness(Block block) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-        return entity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(ItemInit.SLIPPERY_BOOTS) && !entity.isSneaking() ? SlipperyBoots.SLIPPERINESS : block.getSlipperiness();
+        LivingEntity lvEnt = (LivingEntity) (Object) this;
+        if (lvEnt.getEquippedStack(EquipmentSlot.FEET).getItem().equals(ItemInit.SLIPPERY_BOOTS) && !lvEnt.isSneaking()) return SlipperyBoots.SLIPPERINESS;
+        else if (lvEnt.hasStatusEffect(EffectInit.SLIPPERINESS)) return 0.989F + lvEnt.getStatusEffect(EffectInit.SLIPPERINESS).getAmplifier() * 0.05F;
+        else return block.getSlipperiness();
     }
 }

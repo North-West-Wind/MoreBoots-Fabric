@@ -23,20 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-public class BootsItem extends ArmorItem {
-    protected final String registryName;
+public class BootsItem extends ArmorItem implements IHaveRegistryName {
 
     public BootsItem(ArmorMaterial material, String registryName, boolean isNetherite) {
         super(material, EquipmentSlot.FEET, isNetherite ? new Item.Settings().group(MoreBoots.MoreBootsItemGroup.INSTANCE).fireproof() : new Item.Settings().group(MoreBoots.MoreBootsItemGroup.INSTANCE));
-        this.registryName = registryName;
+        setRegistryName(registryName);
     }
 
     public BootsItem(ArmorMaterial material, String registryName) {
         this(material, registryName, false);
-    }
-
-    public Identifier getRegistryName() {
-        return new Identifier(Reference.MODID, registryName);
     }
 
     @Override
@@ -65,6 +60,8 @@ public class BootsItem extends ArmorItem {
     public void onJump() { }
     @Environment(EnvType.CLIENT)
     public void preRenderLiving(final RenderLivingEvent.Pre<?, ?> event) { }
+    @Environment(EnvType.CLIENT)
+    public void postRenderLiving(final RenderLivingEvent.Post<?, ?> event) { }
     @Environment(EnvType.CLIENT)
     public void renderNameplate(final RenderNameplateEvent event) { }
 

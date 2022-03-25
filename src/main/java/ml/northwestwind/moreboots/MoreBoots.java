@@ -48,4 +48,22 @@ public class MoreBoots implements ModInitializer {
     public static class MoreBootsItemGroup {
         public static final ItemGroup INSTANCE = FabricItemGroupBuilder.build(new Identifier(Reference.MODID, "morebootstab"), () -> new ItemStack(ItemInit.CACTUS_BOOTS));
     }
+
+    public static class Holder<T> {
+        private T obj;
+
+        public static <T> Holder<T> init(T obj) {
+            Holder<T> holder = new Holder<>();
+            holder.set(obj);
+            return holder;
+        }
+
+        public void set(T obj) {
+            this.obj = obj;
+        }
+
+        public T get() {
+            return obj;
+        }
+    }
 }

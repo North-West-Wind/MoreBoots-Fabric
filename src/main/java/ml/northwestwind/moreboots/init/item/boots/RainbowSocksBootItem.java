@@ -3,6 +3,9 @@ package ml.northwestwind.moreboots.init.item.boots;
 import ml.northwestwind.moreboots.events.LivingEvent;
 import ml.northwestwind.moreboots.events.LivingFallEvent;
 import ml.northwestwind.moreboots.init.ItemInit;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,8 +16,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.explosion.Explosion;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class RainbowSocksBootItem extends SocksBootsItem {
     public RainbowSocksBootItem() {
@@ -68,5 +76,11 @@ public class RainbowSocksBootItem extends SocksBootsItem {
             }
             boots.setNbt(tag);
         }
+    }
+
+    @Override
+    public void getCollisionShape(BlockView worldIn, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
+        BlockState state = worldIn.getBlockState(pos);
+        if(state.getMaterial().equals(Material.WATER) && context.isAbove(VoxelShapes.fullCube(), pos, true)) cir.setReturnValue(VoxelShapes.fullCube());
     }
 }

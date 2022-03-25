@@ -13,10 +13,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntityRenderer.class)
 public class MixinLivingEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "render", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", cancellable = true)
     public <T extends LivingEntity> void preRender(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         RenderLivingEvent.Pre event = new RenderLivingEvent.Pre(livingEntity, (LivingEntityRenderer) (Object) this, g, matrixStack, vertexConsumerProvider, i);
         MoreBootsClientHandler.preRenderLiving(event);
         if (event.isCancelled()) ci.cancel();
+    }
+
+    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
+    public <T extends LivingEntity> void postRender(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+        MoreBootsClientHandler.postRenderLiving(new RenderLivingEvent.Post(livingEntity, (LivingEntityRenderer) (Object) this, g, matrixStack, vertexConsumerProvider, i));
     }
 }
